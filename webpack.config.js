@@ -1,11 +1,12 @@
 const loader = require("sass-loader");
+const path = require('path');
 
 module.exports = {
   // 1
   entry: './src/index.js',
   // 2
   output: {
-    path: '/dist',
+    path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
   },
   // 3
