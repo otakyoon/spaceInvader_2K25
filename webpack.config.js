@@ -1,4 +1,3 @@
-const loader = require("sass-loader");
 const path = require('path');
 
 module.exports = {
