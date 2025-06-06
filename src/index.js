@@ -3,6 +3,7 @@ import Space from '../assets/images/space.png';
 import InvaderController from './InvaderController';
 import Player from './player';
 import BulletController from './bulletController';
+import musique from '../assets/sounds/musique.wav';
 
 let canvas = document.getElementById('game');
 let isGameOver = false;
@@ -17,6 +18,15 @@ let invaderController = new InvaderController(canvas, invaderBulletController, p
 const background = new Image();
 const player = new Player(canvas, 3, playerBulletController);
 background.src = Space;
+
+const backgroundMusic = new Audio(musique);
+backgroundMusic.loop = true;
+backgroundMusic.volume = 0.5; 
+backgroundMusic.play().catch((e) => {
+  console.log("Lecture automatique bloquée",e);
+});
+
+
 
 function game() {
     if (!isGameOver) {
@@ -63,3 +73,10 @@ function displayGameOverMessage() {
         ctx.fillText("Game Over", canvas.width / 2 - 90, canvas.height / 2);
     }
 }
+
+
+function startMusicOnce() {
+  backgroundMusic.play();
+  document.removeEventListener("click", startMusicOnce);
+}
+document.addEventListener("click", startMusicOnce);
