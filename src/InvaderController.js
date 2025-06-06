@@ -26,11 +26,12 @@ export default class InvaderController {
     invadersRows = [];
 
 
-    constructor(canvas, invaderBulletController, playerBulletController) {
+    constructor(canvas, invaderBulletController, playerBulletController, scoreCallback) {
         this.canvas = canvas;
         this.createInvaders();
         this.invaderBulletController = invaderBulletController;
         this.playerBulletController = playerBulletController;
+        this.scoreCallback = scoreCallback;
     }
 
 
@@ -139,6 +140,7 @@ export default class InvaderController {
             invaderRow.forEach((invader, invaderIndex)=>{
                 if(this.playerBulletController.collideWith(invader)){
                     invaderRow.splice(invaderIndex, 1);
+                    this.scoreCallback();
                 }
             })})
 
