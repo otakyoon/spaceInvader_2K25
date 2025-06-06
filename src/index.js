@@ -9,11 +9,12 @@ let isGameOver = false;
 let didWin = false;
 canvas.height = 600;
 canvas.width = 600;
+let score = 0;
 
 let ctx = canvas.getContext("2d");
 const playerBulletController = new BulletController(canvas, 5, 'red', true);
 const invaderBulletController = new BulletController(canvas, 4, 'green', false);
-let invaderController = new InvaderController(canvas, invaderBulletController, playerBulletController);
+let invaderController = new InvaderController(canvas, invaderBulletController, playerBulletController, ()=> score+=10);
 const background = new Image();
 const player = new Player(canvas, 3, playerBulletController);
 background.src = Space;
@@ -26,6 +27,7 @@ function game() {
         playerBulletController.draw(ctx);
         invaderBulletController.draw(ctx);
         checkGameOver();
+        displayScore();
 
     }else{
         displayGameOverMessage();
@@ -62,4 +64,10 @@ function displayGameOverMessage() {
     ctx.font = "60px Arial";
         ctx.fillText("Game Over", canvas.width / 2 - 90, canvas.height / 2);
     }
+}
+
+function displayScore() {
+    ctx.fillStyle = "white";
+    ctx.font = "20px Arial";
+    ctx.fillText("Score: " + score , 10, 20);
 }
