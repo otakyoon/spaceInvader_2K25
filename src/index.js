@@ -10,6 +10,7 @@ let didWin = false;
 canvas.height = 600;
 canvas.width = 600;
 let ctx = canvas.getContext("2d");
+let score = 0;
 
 let playerBulletController;
 let invaderBulletController;
@@ -24,7 +25,7 @@ function initializeGame() {
 
     playerBulletController = new BulletController(canvas, 5, 'red', true);
     invaderBulletController = new BulletController(canvas, 4, 'green', false);
-    invaderController = new InvaderController(canvas, invaderBulletController, playerBulletController);
+    invaderController = new InvaderController(canvas, invaderBulletController, playerBulletController, () => score += 10);
     player = new Player(canvas, 3, playerBulletController);
 
     hideReplayButton();
@@ -68,6 +69,7 @@ function game() {
         playerBulletController.draw(ctx);
         invaderBulletController.draw(ctx);
         checkGameOver();
+        displayScore();
     } else {
         displayGameOverMessage();
     }
@@ -113,3 +115,9 @@ initializeGame();
 createReplayButton();
 
 setInterval(game, 1000 / 60);
+
+function displayScore() {
+    ctx.fillStyle = "white";
+    ctx.font = "20px Arial";
+    ctx.fillText("Score: "+ score, 10, 20); 
+}
